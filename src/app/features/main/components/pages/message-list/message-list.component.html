@@ -1,0 +1,4 @@
+<div class="flex flex-column w-full" (click)="openMessage(i)" *ngFor="let message of messages; let i = index"  class="msg">
+    <div class="w-full"><b>{{message.date | date : 'short'}}</b> - {{message.subject}} </div>
+</div>
+<div *ngIf="avatar" [innerHTML]="avatar.html"></div>

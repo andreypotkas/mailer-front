@@ -1,0 +1,20 @@
+<header [style.height]="height">
+  <div class="logo">
+    <a routerLink="/start" class="header-logo">
+      <img class="logo" src="assets/logo.png" width="50" height="40" alt="logo" />
+    </a>
+  </div>
+  
+  <div *ngIf="(isLoggedIn$ | async) === false; else userBlock" class="auth-buttons">
+      <button pButton pRipple icon="pi pi-sign-in" label="Login" type="button" routerLink="auth/login" class="mr-3 p-button-text"></button>
+  </div>
+
+  <ng-template #userBlock>
+  	<div class="flex align-items-center gap-2">
+      <button *ngIf="displayAdmin" pButton pRipple label="ADMIN PANEL" type="button" class="mr-3 p-button-text" routerLink="/main"></button>
+      <p>{{ user.email }}</p>
+      <p-avatar icon="pi pi-user"></p-avatar>
+      <button pButton pRipple icon="pi pi-sign-out" class=" p-button-text" (click)="logout()"></button>
+    </div>
+  </ng-template>
+</header>

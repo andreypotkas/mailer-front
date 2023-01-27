@@ -1,0 +1,97 @@
+<div class="flex flex-column gap-2" [formGroup]="profileForm" style="padding-top: 50px;">
+    <p-divider align="left" type="dashed">
+        <b>Contact list to save</b>
+    </p-divider>
+    <div class="field">
+        <span class="p-float-label">
+            <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="contactList" formControlName="mailContactListId" optionLabel="name" optionValue="id"></p-dropdown>
+            <label for="dropdown">Contact list</label>
+        </span>
+    </div>
+
+    <p-divider align="left" type="dashed">
+        <b>Contact info</b>
+    </p-divider>
+
+    <div class="field">
+        <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-user"></i>
+            <input type="text" id="inputtext-left" pInputText formControlName="name"> 
+            <label for="inputtext-left">Name</label>
+        </span>
+    </div>
+    <div class="field">
+        <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-phone"></i>
+            <input type="text" id="inputtext-left" pInputText formControlName="phoneNumber"> 
+            <label for="inputtext-left">Phone number</label>
+        </span>
+    </div>
+    <div class="field">
+        <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-envelope"></i>
+            <input type="text" id="inputtext-left" pInputText formControlName="email"> 
+            <label for="inputtext-left">Email</label>
+        </span>
+    </div>
+
+    <div class="field">
+        <span class="p-float-label">
+            <textarea inputId="textarea" rows="3" style="resize: none;" cols="30" formControlName="description" pInputTextarea></textarea>
+            <label for="textarea">Description</label>
+        </span>
+    </div>
+    
+    <p-divider align="left" type="dashed">
+        <b>Messengers</b>
+    </p-divider>
+
+    <div class="field">
+        <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-telegram"></i>
+            <input type="text" id="inputtext-left" pInputText formControlName="telegram"> 
+            <label for="inputtext-left">Telegram</label>
+        </span>
+    </div>
+
+    <div class="field">
+        <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-whatsapp"></i>
+            <input type="text" id="inputtext-left" pInputText formControlName="whatsup"> 
+            <label for="inputtext-left">What's up</label>
+        </span>
+    </div>
+
+    <p-divider align="left" type="dashed">
+        <b>Social media</b>
+    </p-divider>
+
+    <div class="field">
+        <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-linkedin"></i>
+            <input type="text" id="inputtext-left" pInputText formControlName="linkedin"> 
+            <label for="inputtext-left">LinkedIn</label>
+        </span>
+    </div>
+
+    <div class="field">
+        <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-instagram"></i>
+            <input type="text" id="inputtext-left" pInputText formControlName="instagram"> 
+            <label for="inputtext-left">Instagram</label>
+        </span>
+    </div>
+
+    <div class="field">
+        <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-facebook"></i>
+            <input type="text" id="inputtext-left" pInputText formControlName="facebook"> 
+            <label for="inputtext-left">Facebook</label>
+        </span>
+    </div>
+
+    <div class="flex">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="onCancel()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="onSubmit()"></button>
+    </div>
+</div>

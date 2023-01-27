@@ -1,0 +1,15 @@
+:host ::ng-deep {
+    font-family: var(--font-family);
+    .p-multiselect-chip .p-multiselect-label {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .p-chips, .p-multiselect {
+        min-width: 500px;
+
+        ul {
+            min-width: 500px;
+        }
+    }
+}
+

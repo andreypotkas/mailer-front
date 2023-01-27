@@ -1,0 +1,112 @@
+<div class="flex align-items-center gap-2 text-center mb-2">
+    <img src="assets/logo.png" alt="Image" height="50" class="mb-3">
+    <div class="text-900 text-3xl font-medium mb-3">Email contact lists</div>
+</div>
+
+<p-toast></p-toast>
+
+<div class="card">
+
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Contact list" icon="pi pi-plus" class="p-button-success mr-2" (click)="openContactListDialog()"></button>
+            <button pButton pRipple label="Contact" icon="pi pi-plus" class="p-button-warning mr-2" (click)="openContactDialog()"></button>
+        </ng-template>
+    
+        <ng-template pTemplate="right">
+            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <div class="flex flex-column gap-2">
+        <p-accordion *ngFor="let list of contactLists">
+            <div style="position: relative;">
+                <button pButton pRipple icon="pi pi-trash" class="p-button-danger mr-2" (click)="openRemoveContactListDialog(list.id!)" style="position: absolute; z-index: 2; right: 0; top: 5px;"></button>
+                <p-accordionTab
+                [header]="(list.name! | uppercase) + ' | ' + 'Amount of contacts: ' + list.mails.length + ' | ' + 'Description: Test description'"
+            >
+                <p-card class="flex flex-row" *ngFor="let contact of list.mails">
+                        <div class="flex flex-column gap-2 align-items-left" style="min-width: 200px">
+                            <h4>Info</h4>
+                            <div class="flex gap-2 align-items-center">
+                                <i class="pi pi-user"></i>
+                                <label>{{contact.name}}</label>
+                            </div>
+                            <div class="flex gap-2 align-items-center">
+                                <i class="pi pi-phone"></i>
+                                <label>{{contact.phoneNumber}}</label>
+                            </div>
+                            <div class="flex gap-2 align-items-center">
+                                <i class="pi pi-envelope"></i>
+                                <label>{{contact.email}}</label>
+                            </div>
+                        </div>
+
+                        <p-divider layout="vertical"></p-divider>
+
+                        <div class="flex flex-column gap-2 align-items-left" style="min-width: 200px">
+                            <h4>Messengers</h4>
+                            <div class="flex gap-2 align-items-center">
+                                <i class="pi pi-whatsapp"></i>
+                                <label>{{contact.whatsup}}</label>
+                            </div>
+                            <div class="flex gap-2 align-items-center">
+                                <i class="pi pi-telegram"></i>
+                                <label>{{contact.telegram}}</label>
+                            </div>
+                        </div>
+
+                        <p-divider layout="vertical"></p-divider>
+
+                        <div class="flex flex-column gap-2 align-items-left" style="min-width: 200px">
+                            <h4>Social media</h4>
+                            <div class="flex gap-2 align-items-center">
+                                <i class="pi pi-facebook"></i>
+                                <label>{{contact.facebook}}</label>
+                            </div>
+                            <div class="flex gap-2 align-items-center">
+                                <i class="pi pi-linkedin"></i>
+                                <label>{{contact.linkedin}}</label>
+                            </div>
+                            <div class="flex gap-2 align-items-center">
+                                <i class="pi pi-instagram"></i>
+                                <label>{{contact.instagram}}</label>
+                            </div>
+                        </div>
+                </p-card>
+            </p-accordionTab>
+            </div>
+        </p-accordion>
+        
+    </div>
+</div>
+
+<p-dialog [(visible)]="contactDialog" [style]="{minWidth: '500px', maxWidth:'90%'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+        <app-dialog-window [contactList]="contactLists" (cancel)="hideContactDialog()" (submit)="saveContact($event)"></app-dialog-window>
+</p-dialog>
+
+<p-dialog [(visible)]="contactListDialog" [style]="{ minWidth: '500px', maxWidth:'90%' }" header="Contact Information" [modal]="true" styleClass="p-fluid">
+    <div *ngIf="contactList">
+       <div class="field">
+           <label for="name">Name</label>
+           <input type="text" pInputText id="name" [(ngModel)]="contactList.name" required autofocus />
+           <small class="p-error" *ngIf="submitted && !contactList.name">Name is required.</small>
+       </div>
+       <div class="field">
+           <label for="description">Description</label>
+           <input type="text" pInputText id="description" [(ngModel)]="contactList.description" required autofocus />
+           <small class="p-error" *ngIf="submitted && !contactList.description">Description is required.</small>
+       </div>
+       <div class="flex justify-content-center">
+           <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideContactListDialog()"></button>
+           <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveContactList()"></button>
+       </div>
+    </div>
+</p-dialog>
+
+<p-confirmDialog>
+    <ng-template pTemplate="header">
+        <h3>Confirm dialog</h3>
+    </ng-template>
+</p-confirmDialog>

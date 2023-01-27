@@ -1,0 +1,43 @@
+<div class="surface-ground flex align-items-center justify-content-center overflow-hidden mt-6">
+    <div class="flex flex-column align-items-center justify-content-center">
+        <!-- <img src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg" alt="Sakai logo" class="mb-5 w-6rem flex-shrink-0">                 -->
+        <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
+            <div class="w-full surface-card py-3 px-1 sm:px-8 flex flex-column align-items-center" style="border-radius:53px">
+                <div class="text-center mb-5">
+                    <div class="text-900 text-3xl font-medium mb-3">Welcome!</div>
+                </div>
+
+                <div class="flex flex-column">
+                    <input id="email1" type="text" placeholder="Email address" pInputText class="w-full md:w-30rem mb-3" [formControl]="email">
+
+					<input id="pass" type="text" placeholder="Password" pInputText class="w-full md:w-30rem mb-3" [formControl]="pass">
+
+					<input id="pass-repeat" type="text" placeholder="Password" pInputText class="w-full md:w-30rem mb-3"  [formControl]="repeatPass">
+
+                    <div class="flex align-items-center justify-content-between mb-3 gap-3">
+                        <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)" [routerLink]="['/auth/recovery']">Forgot password?</a>
+                    </div>
+                    <button pButton pRipple label="Sign In" class="w-full p-2 text-xl" (click)="onSubmit()"></button>
+                </div>
+                <div class="flex align-items-center">
+                    <div>Already have an account?</div>
+                    <button pButton pRipple label="Login" type="button" routerLink="/auth/login" class="p-button-text"></button>
+                </div>
+                
+				<p-divider align="center" styleClass="my-4">
+                    <span class="text-600 font-normal text-sm">OR</span>
+                </p-divider>
+				<div class="flex align-items-center flex justify-content-between">
+                    <button pRipple (click)="signupWithFacebook()" class="w-8 font-medium border-1 surface-border surface-100 py-3 px-2 p-component hover:surface-200 active:surface-300 text-900 cursor-pointer transition-colors transition-duration-150 inline-flex align-items-center justify-content-center">
+                        <i class="pi pi-facebook text-indigo-400 mr-2"></i>
+                        <span>Facebook</span>
+                    </button>
+                    <button pRipple (click)="signupWithGoogle()" class="ml-2 w-8 font-medium border-1 surface-border surface-100 py-3 px-2 p-component hover:surface-200 active:surface-300 text-900 cursor-pointer transition-colors transition-duration-150 inline-flex align-items-center justify-content-center">
+                        <i class="pi pi-google text-pink-400 mr-2"></i>
+                        <span>Google</span>
+                    </button>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
