@@ -17,6 +17,11 @@ const routes: Routes = [
         component: MailSenderComponent
       },
       {
+        path: '',
+        redirectTo:'/main/mail-sender',
+        pathMatch: 'full'
+      },
+      {
         path: 'contact-list',
         component: ContactListComponent
       },

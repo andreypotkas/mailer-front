@@ -2,9 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { API_ADDRESS } from 'src/app/entities/constants/token.constants';
+import { API_ADDRESS } from 'src/app/entities/constants/api.constants';
 import { IUserResponse } from 'src/app/entities/interfaces/user.interface';
-import { TokenService } from './token.service';
+import { UsersService } from './users.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -15,7 +15,7 @@ export class AuthService {
 	constructor(
 		private http: HttpClient,
 		private router: Router,
-		private tokenService: TokenService,
+		private userService: UsersService
 	) {}
 
 	public login(email: string, password: string): Observable<IUserResponse> {
@@ -60,9 +60,9 @@ export class AuthService {
 	private onLoginGoogle(event: MessageEvent): void {
 		const response: IUserResponse = JSON.parse(event.data);
 
-		this.tokenService.saveToken(response.tokens.accessToken!);
-		this.tokenService.saveRefreshToken(response.tokens.refreshToken!);
-		this.tokenService.saveUser(response.user);
+		this.userService.setToken(response.tokens.accessToken!);
+		this.userService.setRefreshToken(response.tokens.refreshToken!);
+		this.userService.saveUser(response.user);
 		this.router.navigateByUrl(this.returnUrl);
 
 		this.loginWindow.close();
@@ -83,24 +83,12 @@ export class AuthService {
 	private onLoginFacebook(event: MessageEvent) {
 		const response: IUserResponse = JSON.parse(event.data);
 
-		this.tokenService.saveToken(response.tokens.accessToken!);
-		this.tokenService.saveRefreshToken(response.tokens.refreshToken!);
-		this.tokenService.saveUser(response.user);
+		this.userService.setToken(response.tokens.accessToken!);
+		this.userService.setRefreshToken(response.tokens.refreshToken!);
+		this.userService.saveUser(response.user);
 		this.router.navigateByUrl(this.returnUrl);
 
 		this.loginWindow.close();
 		window.removeEventListener('message', this.onLoginFacebook);
-	}
-
-	public passwordRecovery(email: string) {
-		return this.http.post(`${API_ADDRESS}pass-recovery/send-email`, { email: email });
-	}
-
-	public changePassword(email: string, password: string, token: string) {
-		return this.http.post(
-			`${API_ADDRESS}pass-recovery/new-password`,
-			{ password: password, email: email },
-			{ headers: new HttpHeaders().set('Authorization', `Bearer ${token}`) },
-		);
 	}
 }

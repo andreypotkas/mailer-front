@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_ADDRESS } from 'src/app/entities/constants/token.constants';
+import { API_ADDRESS } from 'src/app/entities/constants/api.constants';
 import { IEmailContactList } from '../models/email-contact.interface';
 
 @Injectable({

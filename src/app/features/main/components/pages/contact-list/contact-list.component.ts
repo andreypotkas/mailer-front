@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ConfirmationService, MessageService, TreeNode } from 'primeng/api';
+import { Component, Input, OnInit } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
 import { take } from 'rxjs';
 import { IEmailContact, IEmailContactList } from '../../../models/email-contact.interface';
 import { ContactEmailService } from '../../../services/contact-email.service';
@@ -9,10 +9,11 @@ import { ContactListService } from '../../../services/contact-list.service';
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
   styleUrls: ['./contact-list.component.scss'],
-  providers: [MessageService, ConfirmationService]
+  providers: [ConfirmationService]
 })
 export class ContactListComponent implements OnInit {
     contactList!: any;
+    currentContactList!: any;
 
     contactDialog!: boolean;
     contactListDialog!: boolean;
@@ -21,21 +22,45 @@ export class ContactListComponent implements OnInit {
     contactLists: IEmailContactList[] = [];
     submitted!: boolean;
 
+    cols!: any[];
+
+    _selectedColumns!: any[];
+
+    @Input() get selectedColumns(): any[] {
+        return this._selectedColumns;
+    }
     constructor(
         private contactListService: ContactListService, 
         private contactEmailService: ContactEmailService, 
-        private messageService: MessageService, 
         private confirmationService: ConfirmationService
     ) {}
 
     ngOnInit() {
         this.contactListService.getAllContactLists().subscribe(data => {
-            this.contactLists = data;      
+            this.contactLists = data;  
             console.log(data);
-                  
+            
         });
+
+        this.cols = [
+            { field: 'name', header: 'Name' },
+            { field: 'description', header: 'Description' },
+            { field: 'email', header: 'Email' },
+            { field: 'facebook', header: 'Facebook' },
+            { field: 'instagram', header: 'Instagram' },
+            { field: 'linkedin', header: 'Linkedin' },
+            { field: 'phoneNumber', header: 'PhoneNumber' },
+            { field: 'telegram', header: 'Telegram' },
+            { field: 'whatsup', header: 'Whatsup' },
+        ];
+
+        this._selectedColumns = this.cols.slice(0,3);
     }
 
+    set selectedColumns(val: any[]) {
+        //restore original order
+        this._selectedColumns = this.cols.filter(col => val.includes(col));
+    }
 
     openContactDialog() {        
         this.submitted = false;
@@ -70,14 +95,20 @@ export class ContactListComponent implements OnInit {
 
     saveContact(contact: any){
         this.contactEmailService.createContactEmail(contact).pipe(take(1)).subscribe(data => {
-            
+
         });      
 
         this.contactDialog = false;
     }
     saveContactList(){
-        this.contactListService.createContactList(this.contactList).pipe(take(1)).subscribe(data => {});
+        this.contactListService.createContactList(this.contactList).pipe(take(1)).subscribe(data => {
+            this.contactLists.push(data);
+        } );
 
         this.contactListDialog = false;
+    }
+
+    selectContactList(item: any){
+        this.currentContactList = item;
     }
 }

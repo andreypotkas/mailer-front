@@ -1,27 +1,4 @@
-<div class="min-h-screen flex surface-ground">
-    <div id="app-sidebar-10" class="h-screen hidden lg:block flex-shrink-0 fixedl lg:sticky left-0 top-0 z-1 select-none surface-ground border-right-1 lg:border-right-none surface-bordere" style="width:280px">
-        <div class="flex flex-column h-full">
-            <!-- <div class="flex align-items-center px-5 flex-shrink-0" style="height:60px">
-                <img src="assets/logo.png" alt="Image" height="30">
-            </div> -->
-
-            <div class="overflow-y-auto pt-5">
-                <p-panelMenu [model]="items" [style]="{'width':'280px'}"></p-panelMenu>
-            </div>
-            <div class="mt-auto">
-                <a pRipple class="m-3 flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-200 transition-duration-150 transition-colors">
-                    <img src="assets/user.png" class="mr-2" style="width: 28px; height: 28px"/>
-                    <span class="font-medium">Amy Elsner</span>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="min-h-screen flex flex-column relative flex-auto">
-
-        <div class="p-5 flex flex-column flex-auto">
-            <div class="border-2 px-2 py-2 surface-border border-round surface-section flex-auto">
-                <router-outlet></router-outlet>
-            </div>
-        </div>
-    </div>
+<div class="main">
+        <p-menubar [model]="items"></p-menubar>    
+        <router-outlet></router-outlet>
 </div>

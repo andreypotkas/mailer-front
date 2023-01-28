@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MessageService } from 'primeng/api';
 import { catchError, Observable, Subject, take } from 'rxjs';
-import { API_ADDRESS } from 'src/app/entities/constants/token.constants';
+import { API_ADDRESS } from 'src/app/entities/constants/api.constants';
 import { IGoogleLoginResponse, IIMapMessage } from '../models/message-list.interface';
 import { IMyEmailAccount } from '../models/my-email.interface';
 

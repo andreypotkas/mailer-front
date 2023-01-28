@@ -22,6 +22,9 @@ import {TreeTableModule} from 'primeng/treetable';
 import {AvatarModule} from 'primeng/avatar';
 import {CardModule} from 'primeng/card';
 import {AccordionModule} from 'primeng/accordion';
+import {MenuModule} from 'primeng/menu';
+import {ToggleButtonModule} from 'primeng/togglebutton';
+import {MenubarModule} from 'primeng/menubar';
 
 @NgModule({
   declarations: [],
@@ -30,10 +33,12 @@ import {AccordionModule} from 'primeng/accordion';
   ],
   exports:[
     ButtonModule,
+    MenubarModule,
     InputTextModule,
     InputTextareaModule,
     ChipsModule,
     EditorModule,
+    ToggleButtonModule,
     MultiSelectModule,
     DividerModule,
     StyleClassModule,
@@ -50,7 +55,8 @@ import {AccordionModule} from 'primeng/accordion';
     TreeTableModule,
     AvatarModule,
     CardModule,
-    AccordionModule
+    AccordionModule,
+    MenuModule
   ]
 })
 export class PrimengModule { }

@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { MainComponent } from './features/main/components/pages/main/main.component';
-import { ProfileComponent } from './core/components/profile/profile.component';
 import { StartComponent } from './core/components/start/start.component';
+
 const routes: Routes = [
 	{
 		path: 'auth',
@@ -15,10 +14,6 @@ const routes: Routes = [
 	{
 		path: 'start',
 		component: StartComponent,
-	},
-	{
-		path: 'profile',
-		component: ProfileComponent,
 	},
 	{
 		path: '',

@@ -3,8 +3,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { CurrentUserService } from 'src/app/core/services/current-user.service';
-import { TokenService } from 'src/app/core/services/token.service';
+import { UsersService } from 'src/app/core/services/users.service';
 import { IUserResponse } from 'src/app/entities/interfaces/user.interface';
 
 
@@ -26,14 +25,13 @@ export class LoginComponent implements OnInit {
 	valCheck: string[] = ['remember'];
 	constructor(
 		private authService: AuthService,
-		private tokenService: TokenService,
-		private currentUserService: CurrentUserService,
+		private userService: UsersService,
 		private route: ActivatedRoute,
 		private router: Router,
 	) {}
 
 	public ngOnInit(): void {
-		this.currentUserService.logout();
+		this.userService.logout();
 		this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 	}
 
@@ -51,9 +49,9 @@ export class LoginComponent implements OnInit {
 	public onSubmit(): void {
 		this.authService.login(this.email.getRawValue()!, this.pass.getRawValue()!).subscribe(
 			(data: IUserResponse) => {
-				this.tokenService.saveToken(data.tokens.accessToken!);
-				this.tokenService.saveRefreshToken(data.tokens.refreshToken!);
-				this.tokenService.saveUser(data.user);
+				this.userService.setToken(data.tokens.accessToken!);
+				this.userService.setRefreshToken(data.tokens.refreshToken!);
+				this.userService.saveUser(data.user);
 				this.router.navigateByUrl('/main');
 			},
 			(err: HttpErrorResponse) => {

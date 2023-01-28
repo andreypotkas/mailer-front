@@ -10,7 +10,7 @@ import { MyEmailsService } from '../../../services/my-emails.service';
 	styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-	items!: MenuItem[];
+	items: MenuItem[] = [];
 	activeItem!: MenuItem;
     emails: any[] = [];
 	constructor(private router: Router, private myEmailsService: MyEmailsService) {}
@@ -29,11 +29,6 @@ export class MainComponent implements OnInit {
             });
             
             this.items = [
-                {
-                    label: 'Mail',
-                    icon: 'pi pi-envelope',
-                    expanded:true,
-                    items: [
                         {
                             label: 'Mail sender', 
                             icon: 'pi pi-send',
@@ -48,21 +43,10 @@ export class MainComponent implements OnInit {
                             label: 'My emails', 
                             icon: 'pi pi-folder', 
                             routerLink: 'my-emails',
-                            expanded: true,
-                            items: [...this.emails]
-                        },   
-                    ]
-                }
+                        },                   
             ];
+
             this.activeItem = this.items[0];
         });
-		
-    
-	}
-
-	change(){
-		console.log(this.activeItem);
-		
-		// this.router.navigate(['main', item.routerLink]);
 	}
 }

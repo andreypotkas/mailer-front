@@ -10,21 +10,20 @@ import {
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, filter, Observable, switchMap, take, throwError } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { CurrentUserService } from 'src/app/core/services/current-user.service';
-import { TokenService } from 'src/app/core/services/token.service';
 import { TOKEN_HEADER_KEY } from 'src/app/entities/constants/token.constants';
 import { IUserResponse } from 'src/app/entities/interfaces/user.interface';
+import { UsersService } from '../services/users.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 	private isRefreshing = false;
 	private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-	constructor(private tokenService: TokenService, private authService: AuthService, private currentUserService: CurrentUserService) {}
+	constructor( private authService: AuthService, private userService: UsersService) {}
 
 	public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		let authReq = req;
-		const token = this.tokenService.getToken();
+		const token = this.userService.getToken();
 		if (token !== null && !authReq.url.includes('auth/refresh')) {
 			authReq = this.addTokenHeader(req, token);
 		}
@@ -52,8 +51,8 @@ export class AuthInterceptor implements HttpInterceptor {
 		if (!this.isRefreshing) {
 			this.isRefreshing = true;
 			this.refreshTokenSubject.next(null);
-			const oldToken = this.tokenService.getRefreshToken();
-			const id = this.currentUserService.getUserFromLocalStorage()?.id;
+			const oldToken = this.userService.getRefreshToken();
+			const id = this.userService.getUserFromLocalStorage()?.id;
 			
 			if (id && oldToken) {				
 				return this.authService.refreshToken(id, oldToken).pipe(
@@ -61,7 +60,7 @@ export class AuthInterceptor implements HttpInterceptor {
 						
 						this.isRefreshing = false;
 						
-						this.tokenService.saveToken(token.tokens.accessToken);
+						this.userService.setToken(token.tokens.accessToken);
 						this.refreshTokenSubject.next(token.tokens.accessToken);
 
 						return next.handle(this.addTokenHeader(request, token.tokens.accessToken));
@@ -69,7 +68,7 @@ export class AuthInterceptor implements HttpInterceptor {
 					catchError((err) => {
 						this.isRefreshing = false;
 
-						this.currentUserService.logout();
+						this.userService.logout();
 						return throwError(err);
 					}),
 				);
@@ -83,7 +82,7 @@ export class AuthInterceptor implements HttpInterceptor {
 			catchError((err) => {
 				this.isRefreshing = false;
 
-				this.currentUserService.logout();
+				this.userService.logout();
 				return throwError(err);
 			}),
 		);

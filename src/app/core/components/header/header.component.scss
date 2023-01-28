@@ -1,8 +1,8 @@
 header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     font-family: var(--font-family);
-    padding: 0 20px;
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, #EEEFAF 0%, #6366F1 100%);
+    padding: 5px 20px;
+    background: var(--surface-card);
 }
