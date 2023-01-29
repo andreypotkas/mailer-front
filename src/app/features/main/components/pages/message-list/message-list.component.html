@@ -1,4 +1,17 @@
-<div class="flex flex-column w-full" (click)="openMessage(i)" *ngFor="let message of messages; let i = index"  class="msg">
-    <div class="w-full"><b>{{message.date | date : 'short'}}</b> - {{message.subject}} </div>
+<div class="flex gap-2 p-2">
+    <div class="flex flex-column surface-card p-2 flex-initial w-15rem">
+        <div  *ngFor="let account of accounts">
+            <div (click)="getAccountMessages(account.id!)" class="p-2 hover:surface-ground cursor-pointer flex">{{account.email}}</div>
+        </div>
+    </div>
+    <div *ngIf="!avatar" class="flex flex-auto flex-column w-full surface-card" >
+        <div (click)="openMessage(i)" *ngFor="let message of messages; let i = index" class="w-full cursor-pointer msg"><b>{{message.date | date : 'short'}}</b> - {{message.subject}} </div>
+    </div>
+    
+    <div *ngIf="avatar">
+        <div class="my-2">
+            <button pButton pRipple icon="pi pi-arrow-left" class="p-button-outlined p-2" (click)="back()"></button>
+        </div>
+        <div [innerHTML]="avatar.html"></div>
+    </div>
 </div>
-<div *ngIf="avatar" [innerHTML]="avatar.html"></div>

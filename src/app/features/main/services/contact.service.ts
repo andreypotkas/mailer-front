@@ -7,15 +7,15 @@ import { IEmailContact } from '../models/email-contact.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class ContactEmailService {
+export class ContactService {
 
   constructor(private http: HttpClient) {}
 
   public createContactEmail(body: IEmailContact): Observable<IEmailContact> {
-		return this.http.post<IEmailContact>(`${API_ADDRESS}mail-contact`, body);
+		return this.http.post<IEmailContact>(`${API_ADDRESS}contact`, body);
 	}
 
 	public deleteContactEmailById(id: string): Observable<string> {
-		return this.http.delete<string>(`${API_ADDRESS}mail-contact/${id}`);
+		return this.http.delete<string>(`${API_ADDRESS}contact/${id}`);
 	}
 }

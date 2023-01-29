@@ -1,7 +1,8 @@
 import { Component, Input, OnInit, Sanitizer } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap, take } from 'rxjs';
 import { IIMapMessage } from '../../../models/message-list.interface';
+import { IMyEmailAccount } from '../../../models/my-email.interface';
 import { MyEmailsService } from '../../../services/my-emails.service';
 
 @Component({
@@ -11,24 +12,33 @@ import { MyEmailsService } from '../../../services/my-emails.service';
 })
 export class MessageListComponent implements OnInit {
   public messages!: IIMapMessage[];
+  public accounts!: IMyEmailAccount[];
   public currentMailBoxId!: string;
   avatar!: any;
-  constructor(private activatedRoute: ActivatedRoute, private myEmailsService: MyEmailsService) { }
+  constructor(private router: Router, private myEmailsService: MyEmailsService) { }
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.pipe(
-      switchMap((event) =>  {
-        this.currentMailBoxId = event[0];
-        return event[0] ? this.myEmailsService.getAllMessages(event[0]) : []
-      }),
-    ).subscribe((data: IIMapMessage[]) => {
-      console.log(data);
-      this.messages = data
-    });
+    this.myEmailsService.getAllMyEmailByUserId().pipe(take(1)).subscribe(data => {            
+      this.accounts = data;
+      this.getAccountMessages(data[0].id!);
+    })
+  }
+
+  getAccountMessages(id:string){
+    this.currentMailBoxId = id;
+    this.myEmailsService.getAllMessages(id).subscribe(data => {
+      this.messages = data;
+    })
+  }
+
+  back(){
+    this.avatar = null;
   }
 
   openMessage(id: number){
-    this.myEmailsService.getMessage(this.currentMailBoxId, id).subscribe((data:any) => this.avatar = data);
+    this.myEmailsService.getMessage(this.currentMailBoxId, id).subscribe((data:any) => {
+      this.avatar = data;
+    });
   }
 }
 

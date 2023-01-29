@@ -31,7 +31,7 @@ const routes: Routes = [
       },
       {
         path: 'messages-list',
-        component: MessageListComponent
+        component: MessageListComponent,
       },
     ]
   },

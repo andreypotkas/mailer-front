@@ -12,6 +12,7 @@ export class MyEmailsService {
   private loginWindow!: Window;
   public currentService!: string;
   public error = new Subject();
+  
   constructor(private http: HttpClient) {}
 
   public createMyEmail(body: IMyEmailAccount): Observable<IMyEmailAccount> {

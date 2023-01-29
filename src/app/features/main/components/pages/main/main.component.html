@@ -1,4 +1,14 @@
 <div class="main">
-        <p-menubar [model]="items"></p-menubar>    
-        <router-outlet></router-outlet>
+        <p-menubar [model]="items">
+                <button
+                pButton 
+                class="p-button-outlined p-2"
+                pRipple 
+                icon="pi pi-sign-out" 
+                (click)="logout()"
+             ></button>
+        </p-menubar>    
+        <div class="p-3">
+                <router-outlet></router-outlet>
+        </div>
 </div>

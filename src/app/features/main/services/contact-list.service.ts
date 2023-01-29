@@ -12,14 +12,14 @@ export class ContactListService {
   constructor(private http: HttpClient) {}
 
   public createContactList(body: IEmailContactList): Observable<IEmailContactList> {
-		return this.http.post<IEmailContactList>(`${API_ADDRESS}mail-contact-list`, body);
+		return this.http.post<IEmailContactList>(`${API_ADDRESS}contact-list`, body);
 	}
 
   public getAllContactLists(): Observable<IEmailContactList[]> {
-		return this.http.get<IEmailContactList[]>(`${API_ADDRESS}mail-contact-list`);
+		return this.http.get<IEmailContactList[]>(`${API_ADDRESS}contact-list`);
 	}
 
 	public deleteContactListById(id: string): Observable<string> {
-		return this.http.delete<string>(`${API_ADDRESS}mail-contact-list/${id}`);
+		return this.http.delete<string>(`${API_ADDRESS}contact-list/${id}`);
 	}
 }

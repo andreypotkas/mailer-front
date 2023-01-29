@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { take } from 'rxjs';
 import { IEmailContact, IEmailContactList } from '../../../models/email-contact.interface';
-import { ContactEmailService } from '../../../services/contact-email.service';
+import { ContactService } from '../../../services/contact.service';
 import { ContactListService } from '../../../services/contact-list.service';
 
 @Component({
@@ -31,14 +31,15 @@ export class ContactListComponent implements OnInit {
     }
     constructor(
         private contactListService: ContactListService, 
-        private contactEmailService: ContactEmailService, 
+        private contactEmailService: ContactService, 
         private confirmationService: ConfirmationService
     ) {}
 
     ngOnInit() {
         this.contactListService.getAllContactLists().subscribe(data => {
+
             this.contactLists = data;  
-            console.log(data);
+            this.currentContactList = data[0]
             
         });
 

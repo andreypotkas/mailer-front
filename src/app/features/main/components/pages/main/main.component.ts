@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {MenuItem} from 'primeng/api';
+import { UsersService } from 'src/app/core/services/users.service';
 import { MyEmailsService } from '../../../services/my-emails.service';
 
 
@@ -13,40 +14,42 @@ export class MainComponent implements OnInit {
 	items: MenuItem[] = [];
 	activeItem!: MenuItem;
     emails: any[] = [];
-	constructor(private router: Router, private myEmailsService: MyEmailsService) {}
+	constructor(
+        private router: Router, 
+        private myEmailsService: MyEmailsService, 
+        private userService: UsersService) {}
 
 	ngOnInit() {
-        this.myEmailsService.getAllMyEmailByUserId().subscribe((data) => {
-            this.emails = data;
-            
-            this.emails = data.map(item => {
-                const newItem = {} as MenuItem;
-                newItem.label = item.email;
-                newItem.icon = 'pi pi-envelope';
-                newItem.queryParams = [item.id];
-                newItem.routerLink = 'messages-list';
-                return newItem;
-            });
-            
-            this.items = [
-                        {
-                            label: 'Mail sender', 
-                            icon: 'pi pi-send',
-                            routerLink: 'mail-sender',
-                        },
-                        {
-                            label: 'Contact list', 
-                            icon: 'pi pi-list', 
-                            routerLink: 'contact-list'
-                        },
-                        {
-                            label: 'My emails', 
-                            icon: 'pi pi-folder', 
-                            routerLink: 'my-emails',
-                        },                   
-            ];
+        this.items = [
+            {
+                icon: 'pi pi-envelope',
+                routerLink: 'mail-sender',
+            },
+            {
+                label: 'Mail sender', 
+                icon: 'pi pi-send',
+                routerLink: 'mail-sender',
+            },
+            {
+                label: 'Contact list', 
+                icon: 'pi pi-list', 
+                routerLink: 'contact-list'
+            },
+            {
+                label: 'Emails', 
+                icon: 'pi pi-list', 
+                routerLink: 'my-emails',
+            },   
+            {
+                label: 'My messages', 
+                icon: 'pi pi-envelope', 
+                routerLink: 'messages-list',
+            },            
+        ];
+	}
 
-            this.activeItem = this.items[0];
-        });
+    public logout() {
+		this.userService.logout();
+		this.router.navigateByUrl('/auth');
 	}
 }

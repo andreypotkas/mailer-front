@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { StartComponent } from './core/components/start/start.component';
 
 const routes: Routes = [
 	{
@@ -12,12 +11,8 @@ const routes: Routes = [
 		loadChildren: () => import('./features/main/main.module').then((m) => m.MainModule),
 	},
 	{
-		path: 'start',
-		component: StartComponent,
-	},
-	{
 		path: '',
-		redirectTo: 'start',
+		redirectTo: 'auth',
 		pathMatch: 'full'
 	},
 ];
