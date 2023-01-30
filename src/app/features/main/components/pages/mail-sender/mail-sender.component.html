@@ -1,6 +1,11 @@
    
         <div class="mb-2">
-            <label  class="block text-900 font-medium mb-2">Select accounts to send from:</label>
+
+            <div class="flex gap-2 align-items-center p-2">
+                <div class="flex align-items-center justify-content-center w-2rem h-2rem border-circle bg-primary">1</div>
+                <label class="block text-900 font-medium">Select accounts to send from:</label>
+            </div>
+            
             <p-multiSelect
                 [options]="myEmailAccountList" 
                 [(ngModel)]="selectedMyEmailAccountList" 
@@ -8,18 +13,24 @@
                 optionLabel="email" 
                 optionValue="id" 
                 display="chip"
+                class="pl-6"
              ></p-multiSelect>
         </div>
-        <div>
-            <div class="mb-2">
-                <label  class="block text-900 font-medium mb-2">Email adresses:</label>
-                <p-chips
-                    placeholder="Add email adresses" 
-                    [(ngModel)]="mailAdressesTypedManually"
-                ></p-chips>
-            </div>
 
-            <label  class="block text-900 font-medium mb-2">Add adresses form contact lists:</label>
+        <p-divider></p-divider>
+
+        <div class="flex flex-column gap-2">
+            <div class="flex gap-2 align-items-center p-2">
+                <div class="flex align-items-center justify-content-center w-2rem h-2rem border-circle bg-primary">2</div>
+                <label class="block text-900 font-medium">Email adresses to send to:</label>
+            </div>
+            
+            <p-chips
+            class="pl-6"
+                placeholder="Add email adresses manually" 
+                [(ngModel)]="mailAdressesTypedManually"
+            ></p-chips>
+
             <p-multiSelect [options]="emailContactLists" 
                 [group]="true" 
                 [(ngModel)]="selectedContacts" 
@@ -27,16 +38,11 @@
                 optionLabel="email" 
                 optionGroupChildren="mails" 
                 optionGroupLabel="name"
-
-                defaultLabel="Select contacts emails" 
+                class="pl-6"
+                defaultLabel="Select contacts emails from your contact lists" 
                 scrollHeight="250px" 
                 display="chip"
             >
-                <ng-template let-group pTemplate="group">
-                    <div class="flex align-items-center">
-                        <span>{{group.label}}</span>
-                    </div>
-                </ng-template>
             </p-multiSelect>
 
             <p-divider></p-divider>
@@ -44,13 +50,21 @@
                 You want to send {{mailAdressesTypedManually.length + selectedContacts.length}} mails from {{selectedMyEmailAccountList.length}} accounts.
             </label>
             <p-divider></p-divider>
-            <label  class="block text-900 font-medium mb-2">Subject</label>
-            <input [(ngModel)]="subject" pInputText class="mb-3" style="min-width: 500px">
-      
-            <label  class="block text-900 font-medium mb-2">Message</label>
-            <p-editor [(ngModel)]="message" [style]="{'min-height':'320px'}"></p-editor>
-            <div [innerHTML]="message"></div>
+            <div class="flex gap-2 align-items-center p-2">
+                <div class="flex align-items-center justify-content-center w-2rem h-2rem border-circle bg-primary">3</div>
+                <label class="block text-900 font-medium">Make your email message</label>
+            </div>
+            <div class="pl-6">
+                <label  class="block text-900 font-medium mb-2">Subject</label>
+                <input [(ngModel)]="subject" pInputText class="mb-3" style="min-width: 500px">
             
-            <button pButton pRipple label="Send" icon="pi pi-send" class="mt-2" (click)="onSubmit()"></button>
+                <div class="flex gap-3">
+                    <p-editor [(ngModel)]="message" [style]="{'height':'320px'}"></p-editor>
+                    <div [innerHTML]="message"></div>
+                </div>
+                <div class="flex align-items-center justify-content-center">            
+                    <button pButton pRipple label="Send" icon="pi pi-envelope" class="mt-2 p-button-outlined" (click)="onSubmit()"></button>
+                </div>
+            </div>
         </div>
  

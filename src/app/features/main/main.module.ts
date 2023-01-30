@@ -10,6 +10,7 @@ import { ContactListComponent } from './components/pages/contact-list/contact-li
 import { MyEmailsComponent } from './components/pages/my-emails/my-emails.component';
 import { MessageListComponent } from './components/pages/message-list/message-list.component';
 import { DialogWindowComponent } from './components/dialog-window/dialog-window.component';
+import { EmailEditorModule } from 'angular-email-editor';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { DialogWindowComponent } from './components/dialog-window/dialog-window.
     CommonModule,
     RouterModule,
     MainRoutingModule,
-    SharedModule
+    SharedModule,
   ],
    exports:[MailSenderComponent, MainComponent]
 })

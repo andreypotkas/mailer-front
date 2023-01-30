@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { take } from 'rxjs';
 import { IEmailContact, IEmailContactList } from '../../../models/email-contact.interface';
 import { IMyEmailAccount } from '../../../models/my-email.interface';
@@ -43,6 +43,9 @@ export class MailSenderComponent implements OnInit {
       message: this.message,
       senderAccountsIds: this.selectedMyEmailAccountList
     }    
+
+    console.log(mailingListInfo);
+    
       
     this.myEmailsService.send(mailingListInfo).pipe(take(1)).subscribe(data => console.log(data));
   }
