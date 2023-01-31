@@ -22,6 +22,8 @@ export class MyEmailsComponent implements OnInit {
     ngOnInit() {
         this.myEmailsService.getAllMyEmailByUserId().pipe(take(1)).subscribe(data => {            
             this.products = data;
+            console.log(data);
+            
         })
     }
 
@@ -31,10 +33,6 @@ export class MyEmailsComponent implements OnInit {
 
     addGoogleAccount(){
         this.myEmailsService.addNewMailAccountWithGoogleLogin();
-    }
-
-    addMailruAccount(){
-        this.myEmailsService.addMailruAccount();
     }
 
     hideDialog() {

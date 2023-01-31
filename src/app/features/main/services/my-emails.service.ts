@@ -99,31 +99,12 @@ export class MyEmailsService {
 	private onYandexLogin(event: MessageEvent): void {
 		const response: IGoogleLoginResponse = JSON.parse(event.data);	
 		console.log(response);
+		
 			
 		this.createMyEmail({...response, service: 'imap.yandex.com'}).pipe(take(1)).subscribe();
 
 		this.loginWindow.close();
 		window.removeEventListener('message', this.onYandexLogin);
-	}
-
-	public addMailruAccount() {
-		this.loginWindow = window.open(
-			`${API_ADDRESS}oauth-mail-account/mailru`,
-			'',
-			'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no',
-		) as Window;
-
-		window.addEventListener('message', (event: MessageEvent) => {			
-			this.onMailruLogin(event);
-		});
-	}
-
-	private onMailruLogin(event: MessageEvent): void {
-		const response: IGoogleLoginResponse = JSON.parse(event.data);		
-		this.createMyEmail({...response, service: 'imap.mail.ru'}).pipe(take(1)).subscribe(data => console.log(data));
-
-		this.loginWindow.close();
-		window.removeEventListener('message', this.onMailruLogin);
 	}
 }
 

@@ -1,2 +1,5 @@
-
-
+:host::ng-deep {
+    .p-multiselect, .p-inputtext{
+        min-width: 30rem;
+    }
+}

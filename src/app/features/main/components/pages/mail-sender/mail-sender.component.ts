@@ -42,10 +42,7 @@ export class MailSenderComponent implements OnInit {
       subject: this.subject,
       message: this.message,
       senderAccountsIds: this.selectedMyEmailAccountList
-    }    
-
-    console.log(mailingListInfo);
-    
+    }        
       
     this.myEmailsService.send(mailingListInfo).pipe(take(1)).subscribe(data => console.log(data));
   }

@@ -22,16 +22,12 @@ export class StartComponent implements OnInit {
 
   ngOnInit(): void {
 		const token = this.userService.getToken();
-		const user = this.userService.getUserFromLocalStorage();
-
-		console.log(token, user);
-		
+		const user = this.userService.getUserFromLocalStorage();		
 
 		if (token && user) {
 			this.userService.getUserById(user!.id).pipe(take(1)).subscribe((user: IUser) => {
 				this.userService.login(user);
 				this.user = user;
-				console.log(user);
 				this.router.navigateByUrl('/main');
 			});
 		} else {
